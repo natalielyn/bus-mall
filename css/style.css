@@ -1,0 +1,23 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1{
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+}
+
+p {
+  margin: auto;
+  width: 500px;
+}
+
+#imageDiv {
+  text-align: center;
+}
+
+img{
+  width: 25%;
+  border-radius: 8px;
+  border: slategrtay solid 1px;
+}
