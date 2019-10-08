@@ -32,20 +32,14 @@ var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
   rightImage.src = ProductImage.allImages[rightIndex].imgURL;
 };
 
-var randomProduct = function() {
-  return Math.ceil(Math.random() * ProductImage.allImages.length -1);
-}
-
-var pickNewProduct = function(){ 
-  var leftIndex = randomProduct ();
-
+var pickNewProduct = function() {
+  var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+  
   do {
-    var middleIndex = randomProduct ();
-  } while (middleIndex === leftIndex);
- 
-  do {
-    var rightIndex = randomProduct();
-  } while (rightIndex === leftIndex || rightIndex === middleIndex);
+    var middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+    var rightIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+  } while(leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
+
 
   leftImgOnPage = ProductImage.allImages[leftIndex];
   middleImgOnPage = ProductImage.allImages[middleIndex];
@@ -62,14 +56,14 @@ console.log ('im working');
     var imageClicked = event.target;
     var id = imageClicked.id;
 
-    if(id === 'left_image' || id === 'middle_image'  || id === 'right_image'){
-      if (id === 'left_image'){
+    if(id === 'left_img' || id === 'middle_img'  || id === 'right_img'){
+      if (id === 'left_img'){
          leftImgOnPage.clicks ++;
       };
-      if (id === 'middle_image') {
+      if (id === 'middle_img') {
         middleImgOnPage.clicks ++;
       };
-      if(id === 'right_image'){
+      if(id === 'right_img'){
         rightImgOnPage.clicks ++;
       };
 
