@@ -52,7 +52,7 @@ var pickNewProduct = function(){
   rightImgOnPage = ProductImage.allProducts[rightIndex];
 
   renderNewImages(leftIndex, middleIndex, rightIndex);
-}
+};
 
 
 //EVENT HANDLER 
@@ -91,6 +91,7 @@ console.log ('im working');
 
 
   var showFinalList = function (){
+ //This code was barrowed from Travis Skyles! 
     var resultsSection = document.getElementById('resultsSection');
     var resultsList = document.createElement('ul');
     resultsSection.appendChild(resultsList);
@@ -99,14 +100,15 @@ console.log ('im working');
       resultItem.textContent = `${ProductImage.allProducts[i].name} was clicked ${ProductImage.allProducts[i].timesClicked} times, and shown ${ProductImage.allProducts[i].timesShown} times`;
       resultsList.appendChild(resultItem);
     }
-  }
+  };
+
   imageSectionTag.addEventListener('click', handleClickOnImg);
 
 
 
 new ProductImage('Starwars Rollerboard', './imgs/bag.jpg');
 new ProductImage('Banana Cutter', './imgs/banana.jpg');
-new ProductImage('Bathroom', './imgs/bathroom');
+new ProductImage('Bathroom', './imgs/bathroom.jpg');
 new ProductImage('boots', './imgs/boots.jpg' );
 new ProductImage('breakfast', './imgs/breakfast.jpg' );
 new ProductImage('bubblegym', './imgs/bubblegum.jpg' );
