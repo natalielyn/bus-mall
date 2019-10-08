@@ -1,15 +1,32 @@
-* {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+ body {
+    background-color: white;
+    width: 1000px;
+    align-content: center;
+    margin: auto;
+ }
 
 h1{
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Faster One', cursive;
+  font-size: 52px;
+  text-align: center;
+  background-color: #b9cceb;
+}
+
+h2 {
   text-align: center;
 }
 
 p {
   margin: auto;
   width: 500px;
+}
+
+ul {
+  text-align: center;
+}
+
+li {
+  list-style-type: none;
 }
 
 #imageDiv {
