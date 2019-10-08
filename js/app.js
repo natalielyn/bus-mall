@@ -7,12 +7,42 @@ var middleImage = document.getElementById('middle_img');
 var rightImage = document.getElementById('right_img');
 var totalClicks = 0;
 var totalRounds = 25;
-
-
 var rightImgOnPage = null;
 var middleImgOnPage = null;
 var leftImgOnPage = null;
 
+var productArray = [
+  ['bag', './img/bag.jpg'],
+  ['banana', './img/banana.jpg'],
+  ['bathroom', './img/bathroom.jpg'],
+  ['boots', './img/boots.jpg'],
+  ['breakfast', './img/breakfast.jpg'],
+  ['bubblegum', './img/bubblegum.jpg'],
+  ['chair', './img/chair.jpg'],
+  ['cthulhu', './img/cthulhu.jpg'],
+  ['dog-duck', './img/dog-duck.jpg'],
+  ['dragon', './img/dragon.jpg'],
+  ['pen', './img/pen.jpg'],
+  ['pet-sweep', './img/pet-sweep.jpg'],
+  ['scissors', './img/scissors.jpg'],
+  ['shark', './img/shark.jpg'],
+  ['sweep', './img/sweep.png'],
+  ['tauntaun', './img/tauntaun.jpg'],
+  ['unicorn', './img/unicorn.jpg'],
+  ['usb', './img/usb.gif'],
+  ['water-can', './img/water-can.jpg'],
+  ['wine-glass', './img/wine-glass.jpg'],
+];
+
+var produceImages = function () {
+  for (var i = 0; i < productArray.length; i++) {
+    var product = productArray[i][0];
+    var source = images[i][0];
+    var data = new ProductImage(product, source);
+  }
+};
+
+//CONSTRUCTOR FUNCTION***
 var ProductImage = function(product, imgURL) {
   this.product = product;
   this.clicks = 0;
@@ -24,14 +54,25 @@ var ProductImage = function(product, imgURL) {
 }
 
 ProductImage.allImages = [];
+console.log(ProductImage.allImages);
 
+//PROTOTYPE ARRAY TO HOLD CLICK ITEMS **Inspired by Trevor
+
+ProductImage.prototype.clicked = function(){
+  this.clicks++;
+};
+
+ProductImage.prototype.totalTimesShown = function() {
+  this.timeshown++;
+};
 //HELPER FUNCTIONS
+//Renders random images to DOM
 var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
   leftImage.src = ProductImage.allImages[leftIndex].imgURL;
   middleImage.src = ProductImage.allImages[middleIndex].imgURL;
   rightImage.src = ProductImage.allImages[rightIndex].imgURL;
 };
-
+//Generates 3 images that can't be the same
 var pickNewProduct = function() {
   var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
   
@@ -58,18 +99,18 @@ console.log ('im working');
 
     if(id === 'left_img' || id === 'middle_img'  || id === 'right_img'){
       if (id === 'left_img'){
-         leftImgOnPage.clicks ++;
+         leftImgOnPage.clicked();
       };
       if (id === 'middle_img') {
-        middleImgOnPage.clicks ++;
+        middleImgOnPage.clicked();
       };
       if(id === 'right_img'){
-        rightImgOnPage.clicks ++;
+        rightImgOnPage.clicked();
       };
 
-      leftImgOnPage.timeshown ++;
-      middleImgOnPage.timeshown ++;
-      rightImgOnPage.timeshown ++;
+      leftImgOnPage.totalTimesShown();
+      middleImgOnPage.totalTimesShown();
+      rightImgOnPage.totalTimesShown();
     
       pickNewProduct();
 
