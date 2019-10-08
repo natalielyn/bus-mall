@@ -38,3 +38,9 @@ img{
   border-radius: 8px;
   border: slategrtay solid 1px;
 }
+
+#chartDiv {
+  width: 500px;
+  height: 500px;
+  margin: auto;
+}

@@ -93,6 +93,7 @@ console.log ('im working');
       var resultItem = document.createElement ('li');
       resultItem.textContent = `${ProductImage.allImages[i].product} was clicked ${ProductImage.allImages[i].clicks} times, and shown ${ProductImage.allImages[i].timeshown} times`;
       resultsList.appendChild(resultItem);
+      makeImageChart()
     }
   };
 
@@ -128,7 +129,7 @@ var genLabels = function(images) {
   var labelsArr = [];
   for (var i = 0; i < images.length; i++){
     labelsArr.push(images[i].product);
-  }
+  };
   console.log(labelsArr);
   return labelsArr;
 };
@@ -137,12 +138,14 @@ var genData = function(images) {
   var dataArr = [];
   for (var i = 0; i < images.length; i++) {
     dataArr.push(images[i].clicks);
-  }
+  };
   console.log(dataArr);
   return dataArr
-}
+};
 
 //myChart Function
+
+function makeImageChart(){
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -181,3 +184,4 @@ var myChart = new Chart(ctx, {
     }
   }
 });
+}
