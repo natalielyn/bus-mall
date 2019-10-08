@@ -19,37 +19,31 @@ var ProductImage = function(product, imgURL) {
   this.timeshown = 0;
   this.imgURL = imgURL;
 
-  ProductImage.allProducts.push(this);
+  ProductImage.allImages.push(this);
 
 }
 
-ProductImage.allProducts = [];
+ProductImage.allImages = [];
 
 //HELPER FUNCTIONS
 var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
-  leftImage.src = ProductImage.allProducts[leftIndex].imgURL;
-  middleImage.src = ProductImage.allProducts[middleIndex].imgURL;
-  rightImage.src = ProductImage.allProducts[rightIndex].imgURL;
+  leftImage.src = ProductImage.allImages[leftIndex].imgURL;
+  middleImage.src = ProductImage.allImages[middleIndex].imgURL;
+  rightImage.src = ProductImage.allImages[rightIndex].imgURL;
 };
 
-var randomProduct = function() {
-  return Math.ceil(Math.random() * ProductImage.allProducts.length -1);
-}
-
-var pickNewProduct = function(){ 
-  var leftIndex = randomProduct ();
-
+var pickNewProduct = function() {
+  var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+  
   do {
-    var middleIndex = randomProduct ();
-  } while (middleIndex === leftIndex);
- 
-  do {
-    var rightIndex = randomProduct();
-  } while (rightIndex === leftIndex || rightIndex === middleIndex);
+    var middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+    var rightIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
+  } while(leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
 
-  leftImgOnPage = ProductImage.allProducts[leftIndex];
-  middleImgOnPage = ProductImage.allProducts[middleIndex];
-  rightImgOnPage = ProductImage.allProducts[rightIndex];
+
+  leftImgOnPage = ProductImage.allImages[leftIndex];
+  middleImgOnPage = ProductImage.allImages[middleIndex];
+  rightImgOnPage = ProductImage.allImages[rightIndex];
 
   renderNewImages(leftIndex, middleIndex, rightIndex);
 };
@@ -62,14 +56,14 @@ console.log ('im working');
     var imageClicked = event.target;
     var id = imageClicked.id;
 
-    if(id === 'left_image' || id === 'middle_image'  || id === 'right_image'){
-      if (id === 'left_image'){
+    if(id === 'left_img' || id === 'middle_img'  || id === 'right_img'){
+      if (id === 'left_img'){
          leftImgOnPage.clicks ++;
       };
-      if (id === 'middle_image') {
+      if (id === 'middle_img') {
         middleImgOnPage.clicks ++;
       };
-      if(id === 'right_image'){
+      if(id === 'right_img'){
         rightImgOnPage.clicks ++;
       };
 
@@ -95,16 +89,14 @@ console.log ('im working');
     var resultsSection = document.getElementById('resultsSection');
     var resultsList = document.createElement('ul');
     resultsSection.appendChild(resultsList);
-    for (var i = 0; i < ProductImage.allProducts.length; i++){
+    for (var i = 0; i < ProductImage.allImages.length; i++){
       var resultItem = document.createElement ('li');
-      resultItem.textContent = `${ProductImage.allProducts[i].name} was clicked ${ProductImage.allProducts[i].timesClicked} times, and shown ${ProductImage.allProducts[i].timesShown} times`;
+      resultItem.textContent = `${ProductImage.allImages[i].product} was clicked ${ProductImage.allImages[i].clicks} times, and shown ${ProductImage.allImages[i].timeshown} times`;
       resultsList.appendChild(resultItem);
     }
   };
 
   imageSectionTag.addEventListener('click', handleClickOnImg);
-
-
 
 new ProductImage('Starwars Rollerboard', './imgs/bag.jpg');
 new ProductImage('Banana Cutter', './imgs/banana.jpg');
