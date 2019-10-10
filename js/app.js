@@ -5,52 +5,46 @@ var imageSectionTag = document.getElementById('imageDiv');
 var leftImage = document.getElementById('left_img');
 var middleImage = document.getElementById('middle_img');
 var rightImage = document.getElementById('right_img');
+
 var totalClicks = 0;
 var totalRounds = 25;
+
 var rightImgOnPage = null;
 var middleImgOnPage = null;
 var leftImgOnPage = null;
 
 var productArray = [
-  ['bag', './img/bag.jpg'],
-  ['banana', './img/banana.jpg'],
-  ['bathroom', './img/bathroom.jpg'],
-  ['boots', './img/boots.jpg'],
-  ['breakfast', './img/breakfast.jpg'],
-  ['bubblegum', './img/bubblegum.jpg'],
-  ['chair', './img/chair.jpg'],
-  ['cthulhu', './img/cthulhu.jpg'],
-  ['dog-duck', './img/dog-duck.jpg'],
-  ['dragon', './img/dragon.jpg'],
-  ['pen', './img/pen.jpg'],
-  ['pet-sweep', './img/pet-sweep.jpg'],
-  ['scissors', './img/scissors.jpg'],
-  ['shark', './img/shark.jpg'],
-  ['sweep', './img/sweep.png'],
-  ['tauntaun', './img/tauntaun.jpg'],
-  ['unicorn', './img/unicorn.jpg'],
-  ['usb', './img/usb.gif'],
-  ['water-can', './img/water-can.jpg'],
-  ['wine-glass', './img/wine-glass.jpg'],
+  ['bag', './imgs/bag.jpg'],
+  ['banana', './imgs/banana.jpg'],
+  ['bathroom', './imgs/bathroom.jpg'],
+  ['boots', './imgs/boots.jpg'],
+  ['breakfast', './imgs/breakfast.jpg'],
+  ['bubblegum', './imgs/bubblegum.jpg'],
+  ['chair', './imgs/chair.jpg'],
+  ['cthulhu', './imgs/cthulhu.jpg'],
+  ['dog-duck', './imgs/dog-duck.jpg'],
+  ['dragon', './imgs/dragon.jpg'],
+  ['pen', './imgs/pen.jpg'],
+  ['pet-sweep', './imgs/pet-sweep.jpg'],
+  ['scissors', './imgs/scissors.jpg'],
+  ['shark', './imgs/shark.jpg'],
+  ['sweep', './imgs/sweep.png'],
+  ['tauntaun', './imgs/tauntaun.jpg'],
+  ['unicorn', './imgs/unicorn.jpg'],
+  ['usb', './imgs/usb.gif'],
+  ['water-can', './imgs/water-can.jpg'],
+  ['wine-glass', './imgs/wine-glass.jpg'],
 ];
 
-var produceImages = function () {
-  for (var i = 0; i < productArray.length; i++) {
-    var product = productArray[i][0];
-    var source = images[i][0];
-    var data = new ProductImage(product, source);
-  }
-};
 
-//CONSTRUCTOR FUNCTION***
+
+//CONSTRUCTOR FUNCTION***********************************
 var ProductImage = function(product, imgURL) {
   this.product = product;
+  this.imgURL = imgURL;
   this.clicks = 0;
   this.timeshown = 0;
-  this.imgURL = imgURL;
-
   ProductImage.allImages.push(this);
-
 }
 
 ProductImage.allImages = [];
@@ -65,7 +59,7 @@ ProductImage.prototype.clicked = function(){
 ProductImage.prototype.totalTimesShown = function() {
   this.timeshown++;
 };
-//HELPER FUNCTIONS
+//HELPER FUNCTIONS*************************************************
 //Renders random images to DOM
 var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
   leftImage.src = ProductImage.allImages[leftIndex].imgURL;
@@ -89,8 +83,15 @@ var pickNewProduct = function() {
   renderNewImages(leftIndex, middleIndex, rightIndex);
 };
 
+//CALCULATE PERCENTAGE*************************
 
-//EVENT HANDLER 
+ProductImage.prototype.calculatePercent = function(){
+  return this.clicks / this.timeshown;
+}
+
+
+
+//EVENT HANDLER *****************************************************
 var handleClickOnImg = function(event){
 console.log ('im working');
   if(totalClicks < totalRounds ) {
@@ -147,7 +148,7 @@ new ProductImage('boots', './imgs/boots.jpg' );
 new ProductImage('breakfast', './imgs/breakfast.jpg' );
 new ProductImage('bubblegym', './imgs/bubblegum.jpg' );
 new ProductImage('chair', './imgs/chair.jpg' );
-new ProductImage('cthulehe', './imgs/cthulhe.jpg' );
+new ProductImage('cthulhu', './imgs/cthulhu.jpg' );
 new ProductImage('dog-duck', './imgs/dog-duck.jpg' );
 new ProductImage('dragon', './imgs/dragon.jpg' );
 new ProductImage('pen', './imgs/pen.jpg' );
@@ -163,6 +164,8 @@ new ProductImage('wine-glass', './imgs/wine-glass.jpg' );
 
 
 pickNewProduct();
+
+
 
 //Generate a sample ChartJS chart
 
@@ -184,10 +187,16 @@ var genData = function(images) {
   return dataArr
 };
 
-//myChart Function
+// var genPercent = function(images){
+//   var percentArr = [];
+//   for (var i = 0; i < images.length; i++) {
+//     percentArr.push(ProductImage.allImages[i].calculatePercent)
+//   }
+// }
+
+//MY CHART FUNCTION******************************************************
 
 function makeImageChart(){
-
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'bar',
@@ -202,15 +211,43 @@ var myChart = new Chart(ctx, {
         'rgba(255, 206, 86, 0.2)',
         'rgba(75, 192, 192, 0.2)',
         'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
       ],
       borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
       ],
       borderWidth: 1
     }]
@@ -226,3 +263,5 @@ var myChart = new Chart(ctx, {
   }
 });
 }
+
+
