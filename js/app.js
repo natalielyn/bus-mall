@@ -13,30 +13,6 @@ var rightImgOnPage = null;
 var middleImgOnPage = null;
 var leftImgOnPage = null;
 
-// var productArray = [
-//   ['bag', './imgs/bag.jpg'],
-//   ['banana', './imgs/banana.jpg'],
-//   ['bathroom', './imgs/bathroom.jpg'],
-//   ['boots', './imgs/boots.jpg'],
-//   ['breakfast', './imgs/breakfast.jpg'],
-//   ['bubblegum', './imgs/bubblegum.jpg'],
-//   ['chair', './imgs/chair.jpg'],
-//   ['cthulhu', './imgs/cthulhu.jpg'],
-//   ['dog-duck', './imgs/dog-duck.jpg'],
-//   ['dragon', './imgs/dragon.jpg'],
-//   ['pen', './imgs/pen.jpg'],
-//   ['pet-sweep', './imgs/pet-sweep.jpg'],
-//   ['scissors', './imgs/scissors.jpg'],
-//   ['shark', './imgs/shark.jpg'],
-//   ['sweep', './imgs/sweep.png'],
-//   ['tauntaun', './imgs/tauntaun.jpg'],
-//   ['unicorn', './imgs/unicorn.jpg'],
-//   ['usb', './imgs/usb.gif'],
-//   ['water-can', './imgs/water-can.jpg'],
-//   ['wine-glass', './imgs/wine-glass.jpg'],
-// ];
-
-
 
 //CONSTRUCTOR FUNCTION***********************************
 var ProductImage = function(product, imgURL) {
@@ -44,16 +20,30 @@ var ProductImage = function(product, imgURL) {
   this.imgURL = imgURL;
   this.clicks = 0;
   this.timeshown = 0;
+  this.previouslyShown = false;
   ProductImage.allImages.push(this);
+
 };
 
+// ARRAY TO STORE ALL PRODUCT OBJECTS**********************
 ProductImage.allImages = [];
 
+// LOCAL STORAGE DATA*************************************
 
 function  updateLocalStorage() {
   var arrString = JSON.stringify(ProductImage.allImages);
-  localStorage.setItem('products', arrString);
+  localStorage.setItem('data', arrString);
 }
+
+function getPreviousData() {
+  var localData = localStorage.getItem('data');
+  var productData = JSON.parse(localData);
+
+  if (productData !== null) {
+    Product.allImages = productData;
+  }
+}
+
 //HELPER FUNCTIONS*************************************************
 //Renders random images to DOM
 var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
@@ -61,23 +51,40 @@ var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
   middleImage.src = ProductImage.allImages[middleIndex].imgURL;
   rightImage.src = ProductImage.allImages[rightIndex].imgURL;
 };
-//Generates 3 images that can't be the same
-var pickNewProduct = function() {
-  var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
-  
-  do {
-    var middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
-    var rightIndex = Math.ceil(Math.random() * ProductImage.allImages.length -1);
-  } while(leftIndex === rightIndex || leftIndex === middleIndex || rightIndex === middleIndex);
 
+//Generates 3 images that can't be the same
+// **Credit to Mason Walker for creating a previously show. variable and setting it to false to ensure no repition of images in next sequence
+var pickNewProduct = function() {
+    var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+    var middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+    var rightIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+  
+    while(ProductImage.allImages[leftIndex].previouslyShown) {
+      leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+    }
+  
+    while(rightIndex === leftIndex || ProductImage.allImages[rightIndex].previouslyShown) {
+      rightIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+    }
+    while(leftIndex === middleIndex || rightIndex === middleIndex || ProductImage.allImages[middleIndex].previouslyShown) {
+      middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
+    }
+    for (var i = 0; i < ProductImage.allImages.length; i++) {
+      ProductImage.allImages[i].previouslyShown = false;
+    }
+ 
 
   leftImgOnPage = ProductImage.allImages[leftIndex];
   middleImgOnPage = ProductImage.allImages[middleIndex];
   rightImgOnPage = ProductImage.allImages[rightIndex];
 
+  
+  ProductImage.allImages[leftIndex].previouslyShown = true;
+  ProductImage.allImages[rightIndex].previouslyShown = true;
+  ProductImage.allImages[middleIndex].previouslyShown = true;
+
   renderNewImages(leftIndex, middleIndex, rightIndex);
 };
-
 
 //EVENT HANDLER *****************************************************
 var handleClickOnImg = function(event){
@@ -106,8 +113,9 @@ var handleClickOnImg = function(event){
 
     if(totalClicks === totalRounds) {
       imageSectionTag.removeEventListener('click', handleClickOnImg)
-      console.log('You have voted on 20 products, thanks!');
+      alert('You have voted on 25 products, thank you!');
       showFinalList();
+      updateLocalStorage();
     }
   };
 
@@ -153,7 +161,7 @@ pickNewProduct();
 
 
 
-//Generate a sample ChartJS chart
+//Generate a ChartJS chart
 
 var genLabels = function(images) {
   var labelsArr = [];
@@ -301,3 +309,9 @@ var myChart = new Chart(ctx, {
   }
 });
 }
+
+
+
+
+
+
