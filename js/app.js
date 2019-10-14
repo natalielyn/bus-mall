@@ -128,7 +128,7 @@ var handleClickOnImg = function(event){
       var resultItem = document.createElement ('li');
       resultItem.textContent = `${ProductImage.allImages[i].product} was clicked ${ProductImage.allImages[i].clicks} times, and shown ${ProductImage.allImages[i].timeshown} times`;
       resultsList.appendChild(resultItem);
-      makeImageChart()
+      makeImageChart();
       updateLocalStorage();
     }
   };
@@ -177,7 +177,7 @@ var genDataClicks = function(images) {
   for (var i = 0; i < images.length; i++) {
     dataArr.push(images[i].clicks);
   };
-  return dataArr
+  return dataArr;
 };
 
 var genDataTime = function(images) {
