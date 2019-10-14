@@ -53,7 +53,7 @@ var renderNewImages = function(leftIndex, middleIndex, rightIndex) {
 };
 
 //Generates 3 images that can't be the same
-// **Credit to Mason Walker for creating a previously show. variable and setting it to false to ensure no repition of images in next sequence
+// **Credit to Mason Walker for creating a previously shown variable and setting it to false to ensure no repition of images in next sequence
 var pickNewProduct = function() {
     var leftIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
     var middleIndex = Math.ceil(Math.random() * ProductImage.allImages.length - 1);
@@ -118,12 +118,12 @@ var handleClickOnImg = function(event){
       updateLocalStorage();
     }
   };
-
+// SHOWING FINAL RESULTS FROM VOTING ***************************************
   var showFinalList = function (){
  //This code was barrowed from Travis Skyles! 
-    var resultsSection = document.getElementById('resultsSection');
-    var resultsList = document.createElement('ul');
-    resultsSection.appendChild(resultsList);
+  var resultsSection = document.getElementById('resultsSection');
+  var resultsList = document.createElement('ul');
+  resultsSection.appendChild(resultsList);
     for (var i = 0; i < ProductImage.allImages.length; i++){
       var resultItem = document.createElement ('li');
       resultItem.textContent = `${ProductImage.allImages[i].product} was clicked ${ProductImage.allImages[i].clicks} times, and shown ${ProductImage.allImages[i].timeshown} times`;
@@ -135,6 +135,7 @@ var handleClickOnImg = function(event){
 
   imageSectionTag.addEventListener('click', handleClickOnImg);
 
+  // PRODUCT IMAGES *********************************************************
 new ProductImage('Starwars Rollerboard', './imgs/bag.jpg');
 new ProductImage('Banana Cutter', './imgs/banana.jpg');
 new ProductImage('Bathroom', './imgs/bathroom.jpg');
@@ -161,7 +162,7 @@ pickNewProduct();
 
 
 
-//Generate a ChartJS chart
+//Generate a ChartJS chart************************************************
 
 var genLabels = function(images) {
   var labelsArr = [];
